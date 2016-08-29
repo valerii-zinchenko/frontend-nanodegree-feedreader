@@ -171,7 +171,9 @@ $(function() {
 			expect(loadFeed.calls.mostRecent().args[0]).toBe(1);
 		});
 
-		it('should hide menu if it was opened', function() {
+		it('should hide menu if it was opened', function(done) {
+			var menu = $('.slide-menu');
+			var menuWidth = menu.width();
 			var menuIcon = $('.menu-icon-link');
 
 			// open menu
@@ -189,6 +191,13 @@ $(function() {
 					done();
 				}, transitionDuration);
 			}, transitionDuration);
+		});
+
+		it('should not throw any exceptions and should not do an AJAX request for an unexisting ID', function() {
+			var spy = spyOn($, 'ajax').and.stub();
+
+			expect(loadFeed.bind(null, 'some not existing ID')).not.toThrow();
+			expect(spy.calls.count()).toBe(0);
 		});
 	});
 }());
