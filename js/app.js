@@ -41,6 +41,10 @@ function init() {
  * which will be called after everything has run successfully.
  */
  function loadFeed(id, cb) {
+     if (!allFeeds[id]) {
+         return;
+     }
+
      var feedUrl = allFeeds[id].url,
          feedName = allFeeds[id].name;
 
